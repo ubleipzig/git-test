@@ -45,4 +45,29 @@ _adjust the script-part according to your repository-name on the gitolite server
 
 Every push to the gitlab-repository now triggers the pipeline-job *gitolite-mirror* which mirror-pushes the entire repo to the gitolite-server.
 
+## github
+
+for mirroring to github the `.gitlab-ci.yml` has to look a little different:
+
+```yaml
+github_mirror:
+  stage: mirror
+  image:
+    name: alpine/git
+    entrypoint: [ "/bin/sh", "-c" ]
+  variables:
+    GIT_STRATEGY: clone
+    GIT_CHECKOUT: "false"
+  script: |
+    cd /tmp
+    git clone --mirror ${CI_REPOSITORY_URL} project
+    cd project
+    git remote add github https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/finc/docker-vufind.git
+    git push --mirror github
+  tags:
+  - docker
+```
+_In Github create an access-token for the mirroring user and the specified repository. Create a secret variable `GITHUB_TOKEN` in the project with value of the generated access-token. Also create a secret variable `GITHUB_USER` with the name of the mirroring user._
+
+
 [secret variable]: https://git.sc.uni-leipzig.de/help/ci/variables/README#secret-variables]
