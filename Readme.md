@@ -62,7 +62,7 @@ github_mirror:
     cd /tmp
     git clone --mirror ${CI_REPOSITORY_URL} project
     cd project
-    git remote add github https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/finc/docker-vufind.git
+    git remote add github https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/ubleipzig/git-test.git
     git push --mirror github
   tags:
   - docker
