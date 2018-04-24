@@ -12,6 +12,7 @@ github_mirror:
   script: |
     mkdir -p ~/.ssh
     echo "${GITLAB_MIRROR_SERVICE}" > ~/.ssh/id_ecdsa
+    echo "${GITOLITE_SSH_FINGERPRINT}" > ~/.ssh/known_hosts
     chmod go-rw -R ~/.ssh
     cd /tmp
     git clone --mirror ${CI_REPOSITORY_URL} project
