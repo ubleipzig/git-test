@@ -1,7 +1,7 @@
 stages:
 - mirror
 
-github_mirror:
+gitolite_mirror:
   stage: mirror
   image:
     name: alpine/git
@@ -17,7 +17,7 @@ github_mirror:
     cd /tmp
     git clone --mirror ${CI_REPOSITORY_URL} project
     cd project
-    git remote add gitolite git@git.ub.intern.uni-leipzig.de:git-test.git
+    git remote add gitolite git@git.ub.intern.uni-leipzig.de:gitlab-mirror/git-test.git
     git push --mirror gitolite
   tags:
   - docker
